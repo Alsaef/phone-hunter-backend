@@ -81,6 +81,12 @@ async function run() {
     if (req.query?.email) {
       query = { email: req.query.email }
     }
+    app.delete('/orders/:id',async(req,res)=>{
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result=await Orders.deleteOne(query)
+      res.send(result)
+    })
   //  console.log(req.headers.authorize)
     const result = await Orders.find(query).toArray();
     res.send(result)
